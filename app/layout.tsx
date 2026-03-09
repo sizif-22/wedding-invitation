@@ -38,7 +38,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${cinzel.variable} ${cormorant.variable} ${jost.variable}`}>
+      <head>
+        <link
+          href="https://fonts.cdnfonts.com/css/janeeta"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.cdnfonts.com/css/harry-potter"
+          rel="stylesheet"
+        />
+      </head>
+      <body
+        className={`${cinzel.variable} ${cormorant.variable} ${jost.variable}`}
+      >
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

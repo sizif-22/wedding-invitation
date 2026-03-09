@@ -6,6 +6,7 @@ import Timeline from "./components/Timeline";
 import Closing from "./components/Closing";
 import Petals from "./components/Petals";
 import ScrollReveal from "./components/ScrollReveal";
+import Parallax from "./components/Parallax";
 
 export default function Home() {
   return (
@@ -21,8 +22,13 @@ export default function Home() {
         attribution="— AMR &amp; HEND —"
       />
 
-      <Details />
-      <Location />
+      <Parallax speed={-0.08}>
+        <Details />
+      </Parallax>
+
+      <Parallax speed={-0.05}>
+        <Location />
+      </Parallax>
 
       {/* Timeline Band */}
       <QuoteBand
@@ -30,7 +36,10 @@ export default function Home() {
         subtitle="A journey crafted with love through the night"
       />
 
-      <Timeline />
+      <Parallax speed={-0.06}>
+        <Timeline />
+      </Parallax>
+
       <Closing />
     </>
   );

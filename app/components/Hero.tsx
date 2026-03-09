@@ -11,9 +11,9 @@ export default function Hero() {
             <p className="hero-label">We joyfully invite you to celebrate</p>
 
             <h1 className="names">
-                Amr
+                <span>Amr</span>
                 <span className="amp">&amp;</span>
-                Hend
+                <span>Hend</span>
             </h1>
 
             <div className="divider-ornament">
