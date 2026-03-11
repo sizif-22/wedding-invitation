@@ -14,7 +14,7 @@ const events = [
     {
         time: "8:00 PM",
         event: "First dance",
-        desc: "A jubilant procession to welcome the newlyweds into the celebration hall",
+        desc: "The grand entrance of the new husband and wife.",
         side: "li" as const,
     },
     {

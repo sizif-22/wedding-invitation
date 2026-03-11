@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
+  <title>Amr & Hend — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@200;300;400&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/janeeta" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/harry-potter" rel="stylesheet">
+
+  <style>
+    :root {
+      --beige: #f5ede0;
+      --beige-light: #fdf8f2;
+      --beige-mid: #e8d8c4;
+      --beige-dark: #c9b49a;
+      --burgundy: #6b2737;
+      --burgundy-light: #8b3a4a;
+      --burgundy-dark: #4a1825;
+      --gold: #c9a96e;
+      --gold-light: #e2c898;
+      --text-dark: #2d1a20;
+      --text-mid: #5a3a42;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      /* Prevent font size inflation on iOS */
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--beige-light);
+      font-family: 'Jost', sans-serif;
+      color: var(--text-dark);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      /* Prevent iOS rubber-band overscroll from showing white gaps */
+      overscroll-behavior: none;
+    }
+
+    /* PETALS */
+    .petal-container {
+      /* Use absolute instead of fixed on iOS to avoid fixed-position Safari bugs */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      /* Promote to own layer for iOS GPU compositing */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    .petal {
+      position: absolute;
+      top: -40px;
+      opacity: 0;
+      -webkit-animation: fall linear infinite;
+      animation: fall linear infinite;
+      /* Hardware-accelerate each petal */
+      -webkit-transform: translateZ(0);
+      will-change: transform, opacity;
+    }
+
+    @-webkit-keyframes fall {
+      0% {
+        -webkit-transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+
+      5% {
+        opacity: 0.75;
+      }
+
+      90% {
+        opacity: 0.45;
+      }
+
+      100% {
+        -webkit-transform: translateY(108vh) rotate(560deg) translateX(55px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+
+      5% {
+        opacity: 0.75;
+      }
+
+      90% {
+        opacity: 0.45;
+      }
+
+      100% {
+        transform: translateY(108vh) rotate(560deg) translateX(55px);
+        opacity: 0;
+      }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      /* iOS 100vh fix: use --vh set by JS; fallback to 100vh for non-iOS */
+      min-height: 100vh;
+      min-height: calc(var(--vh, 1vh) * 100);
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 90px 20px 80px;
+      /* Safe area inset for iPhone notch/Dynamic Island */
+      padding-top: max(90px, env(safe-area-inset-top, 0px));
+      padding-bottom: max(80px, env(safe-area-inset-bottom, 0px));
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(107, 39, 55, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(201, 169, 110, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 80% 10%, rgba(201, 169, 110, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Corner flowers */
+    .corner-flower {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .corner-flower.tl {
+      top: 0;
+      left: 0;
+      width: clamp(130px, 18vw, 220px);
+    }
+
+    .corner-flower.tr {
+      top: 0;
+      right: 0;
+      width: clamp(130px, 18vw, 220px);
+      transform: scaleX(-1);
+    }
+
+    .corner-flower.bl {
+      bottom: 0;
+      left: 0;
+      width: clamp(110px, 15vw, 185px);
+      transform: scaleY(-1);
+    }
+
+    .corner-flower.br {
+      bottom: 0;
+      right: 0;
+      width: clamp(110px, 15vw, 185px);
+      transform: scale(-1);
+    }
+
+    /* hero text */
+    .hero-label {
+      font-family: 'Cinzel', serif;
+      /* Min 16px to prevent iOS auto-zoom on tiny text */
+      font-size: max(0.68rem, 12px);
+      letter-spacing: 0.5em;
+      color: #a0711b;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      -webkit-transform: translateY(20px);
+      transform: translateY(20px);
+      -webkit-animation: fadeUp 1s ease 0.3s forwards;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+
+    .names {
+      font-family: 'Janeeta', 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 13vw, 9.5rem);
+      font-weight: 400;
+      line-height: 0.88;
+      color: var(--burgundy);
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      -webkit-transform: translateY(30px);
+      transform: translateY(30px);
+      -webkit-animation: fadeUp 1.2s ease 0.6s forwards;
+      animation: fadeUp 1.2s ease 0.6s forwards;
+    }
+
+    .names .amp {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.42em;
+      color: var(--gold);
+      line-height: 1.3;
+      margin: 6px 0;
+    }
+
+    .divider-ornament {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 16px;
+      margin: 30px auto;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      -webkit-animation: fadeUp 1s ease 1s forwards;
+      animation: fadeUp 1s ease 1s forwards;
+      width: min(420px, 85vw);
+    }
+
+    .divider-ornament::before,
+    .divider-ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .dia {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+    }
+
+    .hero-date {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.82rem, 2vw, 1rem);
+      letter-spacing: 0.35em;
+      color: var(--burgundy);
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      -webkit-animation: fadeUp 1s ease 1.2s forwards;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+
+    .hero-sub {
+      font-weight: 200;
+      font-size: 0.88rem;
+      letter-spacing: 0.2em;
+      color: var(--text-mid);
+      margin-top: 10px;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      -webkit-animation: fadeUp 1s ease 1.4s forwards;
+      animation: fadeUp 1s ease 1.4s forwards;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      bottom: 5PX;
+      left: 43%;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      -webkit-animation: fadeUp 1s ease 2s forwards;
+      animation: fadeUp 1s ease 2s forwards;
+      z-index: 2;
+    }
+
+    .scroll-hint span {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 38px;
+      background: -webkit-linear-gradient(top, var(--gold), transparent);
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      -webkit-animation: scrollPulse 2s ease-in-out infinite;
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @-webkit-keyframes scrollPulse {
+
+      0%,
+      100% {
+        -webkit-transform: scaleY(1);
+        opacity: 1;
+      }
+
+      50% {
+        -webkit-transform: scaleY(0.5);
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scaleY(0.5);
+        opacity: 0.4;
+      }
+    }
+
+    @-webkit-keyframes fadeUp {
+      to {
+        opacity: 1;
+        -webkit-transform: translateY(0) scale(1);
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* BAND */
+    .band {
+      background: var(--burgundy);
+      padding: 56px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201, 169, 110, 0.13) 0%, transparent 70%);
+    }
+
+    .band-text {
+      font-family: 'Janeeta', 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 3.5vw, 1.85rem);
+      color: var(--beige-light);
+      position: relative;
+      opacity: 0;
+      -webkit-transform: translateY(20px);
+      transform: translateY(20px);
+      -webkit-transition: opacity 0.8s ease, -webkit-transform 0.8s ease;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .band.visible .band-text {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    .always-word {
+      font-family: 'Harry Potter', 'MedievalSharp', 'Palatino Linotype', serif;
+      font-size: 1.22em;
+      color: var(--gold-light);
+      display: inline-block;
+      text-shadow: 0 0 20px rgba(201, 169, 110, 0.6), 0 2px 5px rgba(0, 0, 0, 0.35);
+      letter-spacing: 0.03em;
+    }
+
+    .band-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.42em;
+      color: var(--gold-light);
+      margin-top: 14px;
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      position: relative;
+      opacity: 0;
+      -webkit-transform: translateY(20px);
+      transform: translateY(20px);
+      -webkit-transition: opacity 0.8s ease 0.2s, -webkit-transform 0.8s ease 0.2s;
+      transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+    }
+
+    .band.visible .band-sub {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    /* SECTIONS */
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 80px 20px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.70rem;
+      letter-spacing: 0.6em;
+      color: #a0711b;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 14px;
+      opacity: 0;
+      -webkit-transform: translateY(20px);
+      transform: translateY(20px);
+      -webkit-transition: opacity 0.8s ease, -webkit-transform 0.8s ease;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      text-align: center;
+      color: var(--burgundy);
+      margin-bottom: 44px;
+      opacity: 0;
+      -webkit-transform: translateY(20px);
+      transform: translateY(20px);
+      -webkit-transition: opacity 0.8s ease 0.1s, -webkit-transform 0.8s ease 0.1s;
+      transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
+    }
+
+    .section.visible .section-tag,
+    .section.visible .section-title {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    /* DETAIL CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .detail-card {
+      background: white;
+      border: 1px solid var(--beige-mid);
+      border-top: 3px solid var(--burgundy);
+      padding: 36px 28px;
+      text-align: center;
+      opacity: 0;
+      -webkit-transform: translateY(30px);
+      transform: translateY(30px);
+      -webkit-transition: opacity 0.7s ease, -webkit-transform 0.7s ease, box-shadow 0.3s ease;
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      /* Prevent iOS click-through stacking issues */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .detail-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: -webkit-linear-gradient(left, transparent, var(--gold), transparent);
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      -webkit-transform: scaleX(0);
+      transform: scaleX(0);
+      -webkit-transition: -webkit-transform 0.4s ease;
+      transition: transform 0.4s ease;
+    }
+
+    .detail-card:hover::after {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+    }
+
+    .detail-card:hover {
+      box-shadow: 0 12px 40px rgba(107, 39, 55, 0.12);
+      -webkit-transform: translateY(-3px) !important;
+      transform: translateY(-3px) !important;
+    }
+
+    .section.visible .detail-card {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    .section.visible .detail-card:nth-child(2) {
+      transition-delay: 0.15s;
+    }
+
+    .section.visible .detail-card:nth-child(3) {
+      transition-delay: 0.3s;
+    }
+
+    .icon-wrap {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 18px;
+      display: block;
+    }
+
+    .icon-wrap svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .card-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.5em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .card-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      color: var(--burgundy);
+      line-height: 1.4;
+    }
+
+    .card-sub {
+      font-size: 0.8rem;
+      color: var(--text-mid);
+      margin-top: 8px;
+      font-weight: 200;
+      line-height: 1.5;
+    }
+
+    /* LOCATION */
+    .location-box {
+      background: white;
+      border: 1px solid var(--beige-mid);
+      padding: 50px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      -webkit-transform: translateY(30px);
+      transform: translateY(30px);
+      -webkit-transition: opacity 0.8s ease, -webkit-transform 0.8s ease;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .location-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: -webkit-linear-gradient(left, var(--burgundy), var(--gold), var(--burgundy));
+      background: linear-gradient(to right, var(--burgundy), var(--gold), var(--burgundy));
+    }
+
+    .section.visible .location-box {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    .location-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
+      color: var(--burgundy);
+      margin-bottom: 12px;
+    }
+
+    .location-address {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      font-weight: 200;
+      letter-spacing: 0.1em;
+      line-height: 1.9;
+      margin-bottom: 28px;
+    }
+
+    .map-btn {
+      display: inline-block;
+      padding: 14px 38px;
+      background: var(--burgundy);
+      color: var(--beige-light);
+      text-decoration: none;
+      font-family: 'Cinzel', serif;
+      /* Min 16px prevents iOS auto-zoom on form-like interactive elements */
+      font-size: max(0.7rem, 12px);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      -webkit-transition: background 0.3s, -webkit-transform 0.3s, box-shadow 0.3s;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+      /* Larger touch target for iOS */
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .map-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(201, 169, 110, 0.25);
+      border-radius: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      -webkit-transition: width 0.4s, height 0.4s;
+      transition: width 0.4s, height 0.4s;
+    }
+
+    .map-btn:hover::before,
+    .map-btn:active::before {
+      width: 320px;
+      height: 320px;
+    }
+
+    .map-btn:hover,
+    .map-btn:active {
+      box-shadow: 0 8px 30px rgba(107, 39, 55, 0.3);
+      -webkit-transform: translateY(-2px);
+      transform: translateY(-2px);
+    }
+
+    /* TIMELINE */
+    .timeline {
+      position: relative;
+      padding: 10px 0 20px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: -webkit-linear-gradient(top, transparent, var(--beige-dark) 10%, var(--gold) 50%, var(--beige-dark) 90%, transparent);
+      background: linear-gradient(to bottom, transparent, var(--beige-dark) 10%, var(--gold) 50%, var(--beige-dark) 90%, transparent);
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      margin-bottom: 38px;
+      opacity: 0;
+      -webkit-transition: opacity 0.7s ease, -webkit-transform 0.7s ease;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .timeline-item.li {
+      -webkit-transform: translateX(-30px);
+      transform: translateX(-30px);
+    }
+
+    .timeline-item.ri {
+      -webkit-transform: translateX(30px);
+      transform: translateX(30px);
+    }
+
+    .section.visible .timeline-item {
+      opacity: 1;
+      -webkit-transform: translateX(0) !important;
+      transform: translateX(0) !important;
+    }
+
+    .section.visible .timeline-item:nth-child(2) {
+      transition-delay: 0.12s;
+    }
+
+    .section.visible .timeline-item:nth-child(3) {
+      transition-delay: 0.24s;
+    }
+
+    .section.visible .timeline-item:nth-child(4) {
+      transition-delay: 0.36s;
+    }
+
+    .section.visible .timeline-item:nth-child(5) {
+      transition-delay: 0.48s;
+    }
+
+    .section.visible .timeline-item:nth-child(6) {
+      transition-delay: 0.60s;
+    }
+
+    .section.visible .timeline-item:nth-child(7) {
+      transition-delay: 0.72s;
+    }
+
+    .tc {
+      background: white;
+      border: 1px solid var(--beige-mid);
+      padding: 22px 24px;
+      -webkit-transition: box-shadow 0.3s, -webkit-transform 0.3s;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .tc:hover {
+      box-shadow: 0 8px 28px rgba(107, 39, 55, 0.1);
+      -webkit-transform: translateY(-2px);
+      transform: translateY(-2px);
+    }
+
+    .tc-l {
+      border-right: 3px solid var(--burgundy);
+      text-align: right;
+    }
+
+    .tc-r {
+      border-left: 3px solid var(--gold);
+      text-align: left;
+    }
+
+    .tc-empty {}
+
+    .dot-cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .t-dot {
+      width: 14px;
+      height: 14px;
+      background: var(--burgundy);
+      border-radius: 50%;
+      border: 3px solid var(--beige-light);
+      box-shadow: 0 0 0 2px var(--gold);
+      z-index: 2;
+      position: relative;
+      -webkit-animation: pulseDot 2.5s ease-in-out infinite;
+      animation: pulseDot 2.5s ease-in-out infinite;
+    }
+
+    @-webkit-keyframes pulseDot {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 2px var(--gold);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(201, 169, 110, 0.28);
+      }
+    }
+
+    @keyframes pulseDot {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 2px var(--gold);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(201, 169, 110, 0.28);
+      }
+    }
+
+    .t-time {
+      font-family: montserrat;
+      font-size: 0.65rem;
+      font-weight:400;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+
+    .t-event {
+      font-family: montserrat;
+      font-size: 1.0rem;
+      font-weight: 300;
+      color: var(--burgundy);
+      margin-bottom: 4px;
+    }
+
+    .t-desc {
+      font-family: montserrat;
+      font-size: 0.78rem;
+      color: var(--text-mid);
+      font-weight: 200;
+      line-height: 1.5;
+    }
+
+    /* MOBILE TIMELINE */
+    @media(max-width:640px) {
+      .timeline::before {
+        left: 17px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 34px 1fr !important;
+        grid-template-rows: auto;
+      }
+
+      .dot-cell {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: start;
+        padding-top: 6px;
+      }
+
+      .tc {
+        grid-column: 2;
+        grid-row: 1;
+        text-align: left !important;
+        border-left: 3px solid var(--burgundy) !important;
+        border-right: none !important;
+      }
+
+      .tc-empty {
+        display: none;
+      }
+
+      .corner-flower {
+        width: clamp(90px, 28vw, 130px) !important;
+      }
+    }
+
+    /* CLOSING */
+    .closing {
+      background: var(--burgundy-dark);
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .closing::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 35% 50%, rgba(201, 169, 110, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 65% 50%, rgba(201, 169, 110, 0.1) 0%, transparent 60%);
+    }
+
+    .closing-names {
+      font-family: 'Janeeta', 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 10vw, 6.5rem);
+      color: var(--beige-light);
+      position: relative;
+      opacity: 0;
+      -webkit-transform: scale(0.95);
+      transform: scale(0.95);
+      -webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .closing.visible .closing-names {
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+
+    .closing-note {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      letter-spacing: 0.28em;
+      margin-top: 18px;
+      opacity: 0;
+      -webkit-transform: translateY(15px);
+      transform: translateY(15px);
+      -webkit-transition: opacity 1s ease 0.3s, -webkit-transform 1s ease 0.3s;
+      transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+    }
+
+    .closing.visible .closing-note {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    .gold-line {
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+      margin: 24px auto;
+      opacity: 0;
+      -webkit-transition: opacity 1s ease 0.15s, width 1s ease 0.15s;
+      transition: opacity 1s ease 0.15s, width 1s ease 0.15s;
+    }
+
+    .closing.visible .gold-line {
+      opacity: 1;
+      width: 160px;
+    }
+
+    .music-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+width:65px;
+height:65px;
+border-radius:50%;
+border:none;
+cursor:pointer;
+
+background:linear-gradient(145deg,#6b0f1a,#8e1b2f);
+
+color:#D4AF37;
+font-size:26px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 0 15px rgba(212,175,55,0.7),
+0 6px 18px rgba(0,0,0,0.35);
+
+transition:all .3s ease;
+z-index:9999;
+}
+
+.music-btn:hover{
+transform:scale(1.12);
+box-shadow:
+0 0 30px rgba(212,175,55,1),
+0 8px 25px rgba(0,0,0,0.4);
+}
+  </style>
+</head>
+
+<body>
+
+  <div class="petal-container" id="petals"></div>
+
+  <!-- ════════════ HERO ════════════ -->
+  <section class="hero">
+
+    <!-- CORNER ROSES — vectorized SVG -->
+    <!-- Top Left -->
+    <svg class="corner-flower tl" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- stems -->
+      <path d="M15 210 Q 30 170 50 140 Q 65 115 80 85 Q 90 65 95 40" stroke="#6b2737" stroke-width="2.2" fill="none"
+        stroke-linecap="round" />
+      <path d="M30 200 Q 45 170 65 150" stroke="#8b3a4a" stroke-width="1.2" fill="none" stroke-linecap="round"
+        opacity="0.6" />
+      <!-- leaves -->
+      <path d="M50 140 Q 25 128 18 110 Q 38 115 50 140Z" fill="#6b2737" opacity="0.55" />
+      <path d="M68 108 Q 92 94 100 78 Q 80 88 68 108Z" fill="#8b3a4a" opacity="0.5" />
+      <path d="M35 165 Q 12 156 8 140 Q 26 146 35 165Z" fill="#6b2737" opacity="0.4" />
+      <!-- bud on side stem -->
+      <ellipse cx="68" cy="148" rx="8" ry="10" fill="#f5ede0" stroke="#6b2737" stroke-width="1.5"
+        transform="rotate(-20 68 148)" />
+      <path d="M61 145 Q 68 136 75 145 Q 68 154 61 145Z" fill="#c9a96e" opacity="0.7" />
+      <!-- main rose — large petals -->
+      <ellipse cx="52" cy="72" rx="26" ry="15" fill="#fdf8f2" stroke="#6b2737" stroke-width="1.4"
+        transform="rotate(-45 52 72)" />
+      <ellipse cx="30" cy="60" rx="24" ry="13" fill="#f5ede0" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-65 30 60)" />
+      <ellipse cx="62" cy="52" rx="23" ry="13" fill="#fdf8f2" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-20 62 52)" />
+      <ellipse cx="36" cy="42" rx="22" ry="13" fill="#e8d8c4" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-80 36 42)" />
+      <ellipse cx="68" cy="68" rx="20" ry="11" fill="#f5ede0" stroke="#6b2737" stroke-width="1"
+        transform="rotate(10 68 68)" />
+      <ellipse cx="22" cy="48" rx="18" ry="11" fill="#fdf8f2" stroke="#6b2737" stroke-width="1"
+        transform="rotate(-100 22 48)" />
+      <!-- inner petals -->
+      <ellipse cx="46" cy="60" rx="14" ry="9" fill="#e8d8c4" stroke="#6b2737" stroke-width="1"
+        transform="rotate(-40 46 60)" />
+      <ellipse cx="40" cy="55" rx="12" ry="8" fill="#f5ede0" stroke="#6b2737" stroke-width="0.8"
+        transform="rotate(-55 40 55)" />
+      <!-- center -->
+      <ellipse cx="44" cy="58" rx="9" ry="7" fill="#6b2737" opacity="0.88" transform="rotate(-45 44 58)" />
+      <ellipse cx="44" cy="58" rx="4.5" ry="3.5" fill="#c9a96e" opacity="0.92" transform="rotate(-45 44 58)" />
+      <!-- small secondary rose -->
+      <ellipse cx="12" cy="28" rx="14" ry="9" fill="#f5ede0" stroke="#6b2737" stroke-width="1"
+        transform="rotate(-25 12 28)" />
+      <ellipse cx="24" cy="16" rx="13" ry="8" fill="#e8d8c4" stroke="#6b2737" stroke-width="0.9"
+        transform="rotate(35 24 16)" />
+      <ellipse cx="6" cy="16" rx="12" ry="8" fill="#fdf8f2" stroke="#6b2737" stroke-width="0.9"
+        transform="rotate(-70 6 16)" />
+      <ellipse cx="18" cy="26" rx="10" ry="7" fill="#f5ede0" stroke="#6b2737" stroke-width="0.8"
+        transform="rotate(-10 18 26)" />
+      <circle cx="15" cy="22" r="5.5" fill="#6b2737" opacity="0.78" />
+      <circle cx="15" cy="22" r="2.5" fill="#c9a96e" opacity="0.92" />
+      <!-- tiny blossom -->
+      <circle cx="85" cy="38" r="5" fill="#f5ede0" stroke="#6b2737" stroke-width="1" />
+      <circle cx="80" cy="32" r="4" fill="#e8d8c4" stroke="#6b2737" stroke-width="0.8" />
+      <circle cx="92" cy="30" r="3.5" fill="#fdf8f2" stroke="#c9a96e" stroke-width="0.8" />
+      <circle cx="86" cy="34" r="3" fill="#6b2737" opacity="0.7" />
+    </svg>
+
+    <!-- Top Right (mirrrored via CSS scaleX(-1)) -->
+    <svg class="corner-flower tr" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 210 Q 30 170 50 140 Q 65 115 80 85 Q 90 65 95 40" stroke="#6b2737" stroke-width="2.2" fill="none"
+        stroke-linecap="round" />
+      <path d="M30 200 Q 45 170 65 150" stroke="#8b3a4a" stroke-width="1.2" fill="none" stroke-linecap="round"
+        opacity="0.6" />
+      <path d="M50 140 Q 25 128 18 110 Q 38 115 50 140Z" fill="#6b2737" opacity="0.55" />
+      <path d="M68 108 Q 92 94 100 78 Q 80 88 68 108Z" fill="#8b3a4a" opacity="0.5" />
+      <path d="M35 165 Q 12 156 8 140 Q 26 146 35 165Z" fill="#6b2737" opacity="0.4" />
+      <ellipse cx="68" cy="148" rx="8" ry="10" fill="#f5ede0" stroke="#6b2737" stroke-width="1.5"
+        transform="rotate(-20 68 148)" />
+      <path d="M61 145 Q 68 136 75 145 Q 68 154 61 145Z" fill="#c9a96e" opacity="0.7" />
+      <ellipse cx="52" cy="72" rx="26" ry="15" fill="#fdf8f2" stroke="#6b2737" stroke-width="1.4"
+        transform="rotate(-45 52 72)" />
+      <ellipse cx="30" cy="60" rx="24" ry="13" fill="#f5ede0" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-65 30 60)" />
+      <ellipse cx="62" cy="52" rx="23" ry="13" fill="#fdf8f2" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-20 62 52)" />
+      <ellipse cx="36" cy="42" rx="22" ry="13" fill="#e8d8c4" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-80 36 42)" />
+      <ellipse cx="68" cy="68" rx="20" ry="11" fill="#f5ede0" stroke="#6b2737" stroke-width="1"
+        transform="rotate(10 68 68)" />
+      <ellipse cx="22" cy="48" rx="18" ry="11" fill="#fdf8f2" stroke="#6b2737" stroke-width="1"
+        transform="rotate(-100 22 48)" />
+      <ellipse cx="46" cy="60" rx="14" ry="9" fill="#e8d8c4" stroke="#6b2737" stroke-width="1"
+        transform="rotate(-40 46 60)" />
+      <ellipse cx="40" cy="55" rx="12" ry="8" fill="#f5ede0" stroke="#6b2737" stroke-width="0.8"
+        transform="rotate(-55 40 55)" />
+      <ellipse cx="44" cy="58" rx="9" ry="7" fill="#6b2737" opacity="0.88" transform="rotate(-45 44 58)" />
+      <ellipse cx="44" cy="58" rx="4.5" ry="3.5" fill="#c9a96e" opacity="0.92" transform="rotate(-45 44 58)" />
+      <ellipse cx="12" cy="28" rx="14" ry="9" fill="#f5ede0" stroke="#6b2737" stroke-width="1"
+        transform="rotate(-25 12 28)" />
+      <ellipse cx="24" cy="16" rx="13" ry="8" fill="#e8d8c4" stroke="#6b2737" stroke-width="0.9"
+        transform="rotate(35 24 16)" />
+      <ellipse cx="6" cy="16" rx="12" ry="8" fill="#fdf8f2" stroke="#6b2737" stroke-width="0.9"
+        transform="rotate(-70 6 16)" />
+      <ellipse cx="18" cy="26" rx="10" ry="7" fill="#f5ede0" stroke="#6b2737" stroke-width="0.8"
+        transform="rotate(-10 18 26)" />
+      <circle cx="15" cy="22" r="5.5" fill="#6b2737" opacity="0.78" />
+      <circle cx="15" cy="22" r="2.5" fill="#c9a96e" opacity="0.92" />
+      <circle cx="85" cy="38" r="5" fill="#f5ede0" stroke="#6b2737" stroke-width="1" />
+      <circle cx="80" cy="32" r="4" fill="#e8d8c4" stroke="#6b2737" stroke-width="0.8" />
+      <circle cx="92" cy="30" r="3.5" fill="#fdf8f2" stroke="#c9a96e" stroke-width="0.8" />
+      <circle cx="86" cy="34" r="3" fill="#6b2737" opacity="0.7" />
+    </svg>
+
+    <!-- Bottom Left (scaleY(-1)) -->
+    <svg class="corner-flower bl" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 210 Q 30 170 50 140 Q 65 115 80 85 Q 90 65 95 40" stroke="#6b2737" stroke-width="2.2" fill="none"
+        stroke-linecap="round" />
+      <path d="M50 140 Q 25 128 18 110 Q 38 115 50 140Z" fill="#6b2737" opacity="0.5" />
+      <path d="M68 108 Q 92 94 100 78 Q 80 88 68 108Z" fill="#8b3a4a" opacity="0.45" />
+      <ellipse cx="52" cy="72" rx="26" ry="15" fill="#fdf8f2" stroke="#6b2737" stroke-width="1.4"
+        transform="rotate(-45 52 72)" />
+      <ellipse cx="30" cy="60" rx="24" ry="13" fill="#f5ede0" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-65 30 60)" />
+      <ellipse cx="62" cy="52" rx="23" ry="13" fill="#fdf8f2" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-20 62 52)" />
+      <ellipse cx="36" cy="42" rx="22" ry="13" fill="#e8d8c4" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-80 36 42)" />
+      <ellipse cx="68" cy="68" rx="20" ry="11" fill="#f5ede0" stroke="#6b2737" stroke-width="1"
+        transform="rotate(10 68 68)" />
+      <ellipse cx="44" cy="58" rx="9" ry="7" fill="#6b2737" opacity="0.85" transform="rotate(-45 44 58)" />
+      <ellipse cx="44" cy="58" rx="4.5" ry="3.5" fill="#c9a96e" opacity="0.9" transform="rotate(-45 44 58)" />
+    </svg>
+
+    <!-- Bottom Right (scale(-1)) -->
+    <svg class="corner-flower br" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 210 Q 30 170 50 140 Q 65 115 80 85 Q 90 65 95 40" stroke="#6b2737" stroke-width="2.2" fill="none"
+        stroke-linecap="round" />
+      <path d="M50 140 Q 25 128 18 110 Q 38 115 50 140Z" fill="#6b2737" opacity="0.5" />
+      <path d="M68 108 Q 92 94 100 78 Q 80 88 68 108Z" fill="#8b3a4a" opacity="0.45" />
+      <ellipse cx="52" cy="72" rx="26" ry="15" fill="#fdf8f2" stroke="#6b2737" stroke-width="1.4"
+        transform="rotate(-45 52 72)" />
+      <ellipse cx="30" cy="60" rx="24" ry="13" fill="#f5ede0" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-65 30 60)" />
+      <ellipse cx="62" cy="52" rx="23" ry="13" fill="#fdf8f2" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-20 62 52)" />
+      <ellipse cx="36" cy="42" rx="22" ry="13" fill="#e8d8c4" stroke="#6b2737" stroke-width="1.2"
+        transform="rotate(-80 36 42)" />
+      <ellipse cx="68" cy="68" rx="20" ry="11" fill="#f5ede0" stroke="#6b2737" stroke-width="1"
+        transform="rotate(10 68 68)" />
+      <ellipse cx="44" cy="58" rx="9" ry="7" fill="#6b2737" opacity="0.85" transform="rotate(-45 44 58)" />
+      <ellipse cx="44" cy="58" rx="4.5" ry="3.5" fill="#c9a96e" opacity="0.9" transform="rotate(-45 44 58)" />
+    </svg>
+
+    <p class="hero-label">We joyfully invite you to celebrate</p>
+
+    <h1 class="names">
+      Amr
+      <span class="amp">&amp;</span>
+      Hend
+    </h1>
+
+    <div class="divider-ornament">
+      <div class="dia"></div>
+      <div class="dia" style="background:var(--beige-dark);width:5px;height:5px;"></div>
+      <div class="dia"></div>
+    </div>
+
+    <p class="hero-date">SUNDAY · 5TH APRIL 2026</p>
+    <p class="hero-sub">The Wedding Celebration &nbsp;·&nbsp; Doors Open at 6:30 PM</p>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ════════════ QUOTE BAND ════════════ -->
+  <div class="band" id="band1">
+    <p class="band-text">"Two souls, one heart — <span class="always-word">always.</span>"</p>
+    <p class="band-sub">— AMR &amp; HEND —</p>
+  </div>
+
+  <!-- ════════════ DETAILS ════════════ -->
+  <section class="section" id="details">
+    <p class="section-tag">The Essentials</p>
+    <h2 class="section-title">When &amp; Where</h2>
+    <div class="cards-grid">
+
+      <div class="detail-card">
+        <span class="icon-wrap">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="8" width="40" height="36" rx="3" stroke="#6b2737" stroke-width="2" />
+            <path d="M4 18h40" stroke="#6b2737" stroke-width="2" />
+            <path d="M14 4v8M34 4v8" stroke="#c9a96e" stroke-width="2.2" stroke-linecap="round" />
+            <rect x="12" y="24" width="6" height="5" rx="1" stroke="#6b2737" stroke-width="1.5" fill="none" />
+            <rect x="21" y="24" width="6" height="5" rx="1" stroke="#6b2737" stroke-width="1.5" fill="none" />
+            <rect x="30" y="24" width="6" height="5" rx="1" stroke="#c9a96e" stroke-width="1.5" fill="none" />
+            <rect x="12" y="33" width="6" height="5" rx="1" stroke="#6b2737" stroke-width="1.5" fill="none" />
+            <rect x="21" y="33" width="6" height="5" rx="1" stroke="#6b2737" stroke-width="1.5" fill="none" />
+            <rect x="30" y="33" width="6" height="5" rx="1" stroke="#6b2737" stroke-width="1.5" fill="none" />
+          </svg>
+        </span>
+        <p class="card-label">Date</p>
+        <p class="card-value">Sunday<br>5th April 2026</p>
+        <p class="card-sub">A day written in the stars</p>
+      </div>
+
+      <div class="detail-card">
+        <span class="icon-wrap">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="19" stroke="#6b2737" stroke-width="2" />
+            <circle cx="24" cy="24" r="2.5" fill="#c9a96e" />
+            <path d="M24 13v11l7 5" stroke="#6b2737" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M24 5v3M24 40v3M5 24h3M40 24h3" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </span>
+        <p class="card-label">Time</p>
+        <p class="card-value">Doors Open<br>6:30 PM</p>
+        <p class="card-sub">The evening begins with welcome drinks</p>
+      </div>
+
+      <div class="detail-card">
+        <span class="icon-wrap">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- outlined ring with gem -->
+            <circle cx="24" cy="26" r="14" stroke="#6b2737" stroke-width="2" />
+            <circle cx="24" cy="26" r="8" stroke="#c9a96e" stroke-width="1.2" />
+            <!-- diamond gem on top -->
+            <path d="M18 12 L24 6 L30 12 L24 20Z" stroke="#6b2737" stroke-width="1.5" fill="none"
+              stroke-linejoin="round" />
+            <path d="M18 12 L30 12" stroke="#c9a96e" stroke-width="1" />
+            <path d="M24 6 L18 12 M24 6 L30 12 M18 12 L24 20 M30 12 L24 20" stroke="#6b2737" stroke-width="0.8"
+              opacity="0.5" />
+          </svg>
+        </span>
+        <p class="card-label">Dress Code</p>
+        <p class="card-value">Formal Attire</p>
+        <p class="card-sub">We welcome your finest formal attire</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════ LOCATION ════════════ -->
+  <section class="section" id="location">
+    <p class="section-tag">Venue</p>
+    <h2 class="section-title">The Location</h2>
+    <div class="location-box">
+      <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="margin:0 auto 18px;display:block;">
+        <path d="M23 4C16 4 10 10 10 17c0 10 13 25 13 25s13-15 13-25c0-7-6-13-13-13Z" stroke="#6b2737" stroke-width="2"
+          fill="none" />
+        <circle cx="23" cy="17" r="5" stroke="#c9a96e" stroke-width="2" fill="none" />
+      </svg>
+      <h3 class="location-name"> Mountain Rose Hotel <br> One view Hall </h3>
+      <p class="location-address">
+        6th of October City, Giza<br>
+        Cairo, Egypt<br>
+        <em style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1rem;">A venue as beautiful as
+          this love story</em>
+      </p>
+      <a class="map-btn" href="https://maps.app.goo.gl/37A55F8o2jpkWVW9A" target="_blank" rel="noopener">
+        Open in Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- ════════════ TIMELINE BAND ════════════ -->
+  <div class="band" id="band2">
+    <p class="band-text">Evening Programme</p>
+    <p class="band-sub">A journey crafted with love through the night</p>
+  </div>
+
+  <!-- ════════════ TIMELINE ════════════ -->
+  <section class="section" id="timeline" style="max-width:980px;">
+    <p class="section-tag">Schedule</p>
+    <h2 class="section-title">Timeline of the Evening</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-item li">
+        <div class="tc tc-l">
+          <p class="t-time">6:30 PM</p>
+          <p class="t-event">Guests Arrive &amp; Welcome</p>
+          <p class="t-desc">Be greeted with warmth, flowers, and a glass of something special</p>
+        </div>
+        <div class="dot-cell">
+          <div class="t-dot"></div>
+        </div>
+        <div class="tc-empty"></div>
+      </div>
+
+      <div class="timeline-item ri">
+        <div class="tc-empty"></div>
+        <div class="dot-cell">
+          <div class="t-dot"></div>
+        </div>
+        <div class="tc tc-r">
+          <p class="t-time">7:15 PM</p>
+          <p class="t-event">Katb Elketab</p>
+          <p class="t-desc">Amr &amp; Hend surrounded by those they love most with Maazon</p>
+        </div>
+      </div>
+
+      <div class="timeline-item li">
+        <div class="tc tc-l">
+          <p class="t-time">8:00 PM</p>
+          <p class="t-event">First dance</p>
+          <p class="t-desc">The grand entrance of the new husband and wife.</p>
+        </div>
+        <div class="dot-cell">
+          <div class="t-dot"></div>
+        </div>
+        <div class="tc-empty"></div>
+      </div>
+
+      <div class="timeline-item ri">
+        <div class="tc-empty"></div>
+        <div class="dot-cell">
+          <div class="t-dot"></div>
+        </div>
+        <div class="tc tc-r">
+          <p class="t-time">8:30 PM</p>
+          <p class="t-event">The dance floor opens </p>
+          <p class="t-desc">Celebration Dancing & Festivities</p>
+        </div>
+      </div>
+
+      <div class="timeline-item li">
+        <div class="tc tc-l">
+          <p class="t-time">9:30 PM</p>
+          <p class="t-event">Dinner</p>
+          <p class="t-desc">Dinner served with live music fills the air and joy fills every table</p>
+        </div>
+        <div class="dot-cell">
+          <div class="t-dot"></div>
+        </div>
+        <div class="tc-empty"></div>
+      </div>
+
+      <div class="timeline-item ri">
+        <div class="tc-empty"></div>
+        <div class="dot-cell">
+          <div class="t-dot"></div>
+        </div>
+        <div class="tc tc-r">
+          <p class="t-time">11:00 PM</p>
+          <p class="t-event">Zaffa (Abo Elhashim)</p>
+          <p class="t-desc">The dance floor opens — let the night carry on until the stars say goodnight</p>
+        </div>
+      </div>
+
+      <div class="timeline-item li">
+        <div class="tc tc-l">
+          <p class="t-time">12:30 AM</p>
+          <p class="t-event">Cheers to the End</p>
+          <p class="t-desc">Thank you for making it unforgettable.</p>
+        </div>
+        <div class="dot-cell">
+          <div class="t-dot"></div>
+        </div>
+        <div class="tc-empty"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════ CLOSING ════════════ -->
+  <div class="closing" id="closing">
+    <!-- closing rose accent -->
+    <svg width="100" height="65" viewBox="0 0 130 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="display:block;margin:0 auto 22px;opacity:0.55;">
+      <ellipse cx="32" cy="42" rx="20" ry="11" fill="#f5ede0" stroke="#c9a96e" stroke-width="1.2"
+        transform="rotate(-38 32 42)" />
+      <ellipse cx="65" cy="24" rx="20" ry="11" fill="#e8d8c4" stroke="#c9a96e" stroke-width="1.2" />
+      <ellipse cx="98" cy="42" rx="20" ry="11" fill="#f5ede0" stroke="#c9a96e" stroke-width="1.2"
+        transform="rotate(38 98 42)" />
+      <ellipse cx="47" cy="57" rx="17" ry="10" fill="#fdf8f2" stroke="#c9a96e" stroke-width="1"
+        transform="rotate(-18 47 57)" />
+      <ellipse cx="83" cy="57" rx="17" ry="10" fill="#e8d8c4" stroke="#c9a96e" stroke-width="1"
+        transform="rotate(18 83 57)" />
+      <circle cx="65" cy="45" r="10" fill="#6b2737" opacity="0.8" />
+      <circle cx="65" cy="45" r="4.5" fill="#c9a96e" opacity="0.9" />
+    </svg>
+
+    <div class="gold-line"></div>
+    <p class="closing-names">Amr &amp; Hend</p>
+    <div class="gold-line"></div>
+    <p class="closing-note">05 · 04 · 2026 &nbsp;·&nbsp; MOUNTAIN ROSE HOTEL · 6TH OCTOBER</p>
+    <p
+      style="color:var(--beige-dark);font-size:0.8rem;margin-top:28px;font-weight:200;letter-spacing:0.22em;position:relative;">
+      With all our love — we cannot wait to celebrate with you
+    </p>
+  </div>
+
+  <!-- Harry's Wondrous World – autoplay audio -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://archive.org/download/fantasymphony-one-concert-to-rule-them-all/01.%20Harry%27s%20Wondrous%20World%20%28From%20Harry%20Potter%29.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="music-btn" id="musicToggle" title="Click to unmute music">🔇</button>
+
+  <script>
+    // ─── iOS VIEWPORT HEIGHT FIX ───
+    // iOS Safari's 100vh includes the address bar, causing layout overflow.
+    // We compute the real inner height and expose it as --vh.
+    function setVh() {
+      var vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', vh + 'px');
+    }
+    setVh();
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', function () {
+      // Short delay allows iOS to settle the new dimensions
+      setTimeout(setVh, 150);
+    });
+
+    // ─── VECTORIZED SVG PETALS ───
+    var petalContainer = document.getElementById('petals');
+    var shapes = [
+      // rose petal
+      function (c, o) { return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 26"><path d="M9 2 Q17 7 15 17 Q9 24 3 17 Q1 7 9 2Z" fill="' + c + '" opacity="' + o + '"/></svg>'; },
+      // round petal
+      function (c, o) { return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 22"><ellipse cx="8" cy="11" rx="7" ry="10" fill="' + c + '" opacity="' + o + '" transform="rotate(12 8 11)"/></svg>'; },
+      // leaf
+      function (c, o) { return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 20"><path d="M7 1 Q14 7 12 15 Q7 20 2 15 Q0 7 7 1Z" fill="' + c + '" opacity="' + o + '"/></svg>'; },
+    ];
+    var cols = ['#6b2737', '#8b3a4a', '#c9b49a', '#e8c8a2', '#c9a96e', '#f5ede0', '#4a1825'];
+
+    for (var i = 0; i < 26; i++) {
+      var d = document.createElement('div');
+      d.className = 'petal';
+      var c = cols[Math.floor(Math.random() * cols.length)];
+      var o = (0.45 + Math.random() * 0.45).toFixed(2);
+      var fn = shapes[Math.floor(Math.random() * shapes.length)];
+      var sz = 9 + Math.random() * 13;
+      d.innerHTML = fn(c, o);
+      // Use both -webkit-animation and animation inline for old iOS
+      d.style.cssText = 'left:' + (Math.random() * 100) + '%;width:' + sz + 'px;height:' + (sz * 1.5) + 'px;-webkit-animation-duration:' + (7 + Math.random() * 9) + 's;animation-duration:' + (7 + Math.random() * 9) + 's;-webkit-animation-delay:' + (Math.random() * 15) + 's;animation-delay:' + (Math.random() * 15) + 's;';
+      petalContainer.appendChild(d);
+    }
+
+    // ─── SCROLL REVEAL ───
+    // IntersectionObserver supported from Safari 12.1 / iOS 12.2+
+    // For older iPhones, fall back to making everything visible immediately.
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.section,.band,.closing').forEach(function (el) { obs.observe(el); });
+    } else {
+      // Graceful degradation: show everything at once on very old iOS
+      document.querySelectorAll('.section,.band,.closing').forEach(function (el) {
+        el.classList.add('visible');
+      });
+    }
+
+    // ─── HARRY'S WONDROUS WORLD – AUTOPLAY ───
+    var audio = document.getElementById('bgMusic');
+    var musicBtn = document.getElementById('musicToggle');
+    var playing = false;
+
+    function playMusic() {
+      audio.volume = 0.7;
+      audio.play().then(function () {
+        playing = true;
+        musicBtn.innerHTML = '🔊';
+      }).catch(function (err) {
+        console.log('Play failed:', err);
+      });
+    }
+
+    function pauseMusic() {
+      audio.pause();
+      playing = false;
+      musicBtn.innerHTML = '🔇';
+    }
+
+    // Button click always toggles
+    musicBtn.addEventListener('click', function () {
+      if (playing) {
+        pauseMusic();
+      } else {
+        playMusic();
+      }
+    });
+
+    // Also start on first click anywhere on the page
+    document.addEventListener('click', function firstClick() {
+      if (!playing) playMusic();
+      document.removeEventListener('click', firstClick);
+    });
+  </script>
+</body>
+
+</html>

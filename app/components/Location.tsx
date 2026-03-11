@@ -27,7 +27,7 @@ export default function Location() {
                         fill="none"
                     />
                 </svg>
-                <h3 className="location-name">Mountain Rose Hotel</h3>
+                <h3 className="location-name">Mountain Rose Hotel <br /> One view Hall</h3>
                 <p className="location-address">
                     6th of October City, Giza
                     <br />

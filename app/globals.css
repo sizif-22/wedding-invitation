@@ -670,8 +670,8 @@ body {
 }
 
 .tc-r {
-  border-left: 3px solid var(--burgundy);
-  text-align: right;
+  border-left: 3px solid var(--gold);
+  text-align: left;
 }
 
 .dot-cell {
@@ -716,7 +716,7 @@ body {
 .t-event {
   font-family: var(--font-montserrat), 'Montserrat', sans-serif;
   font-size: 1.0rem;
-  font-weight: 800;
+  font-weight: 300;
   color: var(--burgundy);
   margin-bottom: 4px;
 }

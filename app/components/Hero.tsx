@@ -31,7 +31,7 @@ export default function Hero() {
 
             <p className="hero-date">SUNDAY · 5TH APRIL 2026</p>
             <p className="hero-sub">
-                The Wedding Celebration &nbsp;·&nbsp; Doors Open at 8:00 PM
+                The Wedding Celebration &nbsp;·&nbsp; Doors Open at 6:30 PM
             </p>
 
             <div className="scroll-hint">
