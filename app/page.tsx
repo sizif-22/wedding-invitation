@@ -7,11 +7,11 @@ import Closing from "./components/Closing";
 import Petals from "./components/Petals";
 import ScrollReveal from "./components/ScrollReveal";
 import Parallax from "./components/Parallax";
-import MusicPlayer from "./components/MusicPlayer";
+import WelcomeGate from "./components/WelcomeGate";
 
 export default function Home() {
   return (
-    <>
+    <WelcomeGate>
       <Petals />
       <ScrollReveal />
 
@@ -42,7 +42,6 @@ export default function Home() {
       </Parallax>
 
       <Closing />
-      <MusicPlayer />
-    </>
+    </WelcomeGate>
   );
 }
