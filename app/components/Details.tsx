@@ -146,7 +146,7 @@ const cards = [
             <>
                 Doors Open
                 <br />
-                8:00 PM
+                6:30 PM
             </>
         ),
         sub: "The evening begins with welcome drinks",

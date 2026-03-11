@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LenisProvider from "./components/LenisProvider";
-import { Cinzel, Cormorant_Garamond, Jost } from "next/font/google";
+import { Cinzel, Cormorant_Garamond, Jost, Montserrat } from "next/font/google";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -20,6 +20,12 @@ const jost = Jost({
   subsets: ["latin"],
   weight: ["200", "300", "400"],
   variable: "--font-jost",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["200", "300", "400"],
+  variable: "--font-montserrat",
 });
 
 export const metadata: Metadata = {
@@ -49,7 +55,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${cinzel.variable} ${cormorant.variable} ${jost.variable}`}
+        className={`${cinzel.variable} ${cormorant.variable} ${jost.variable} ${montserrat.variable}`}
       >
         <LenisProvider>{children}</LenisProvider>
       </body>
